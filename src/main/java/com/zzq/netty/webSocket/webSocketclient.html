@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>webSocketClient</title>
+</head>
+<body>
+<textarea  id="msg" style="width: 300px;height: 200px">
+
+</textarea>
+<input type="button" onclick="javascript:sendText(document.getElementById('msg').value)" value="发送">
+
+<h2>服务返回消息</h2>
+<textarea id="responeText" style="width: 300px;height: 200px">
+
+</textarea>
+<script type="text/javascript">
+    var socket;
+    if(window.WebSocket){
+        socket= new WebSocket("ws://localhost:8888/ws");
+        //收到服务端消息
+        socket.onmessage=function (ev) {
+            document.getElementById('responeText').value+=ev.data+'\n';
+        }
+        //连接建立
+        socket.onopen=function (ev) {
+            document.getElementById('responeText').value+='与服务器建立连接\n';
+        }
+        socket.onclose=function (ev) {
+            alert("服务器连接丢失!")
+        }
+
+    }else {
+        alert("当前浏览器暂不支持WebSocket!")
+    }
+
+    function sendText(msg) {
+        if(socket.readyState==WebSocket.OPEN){
+            socket.send(msg)
+        }else {
+            alert("未连接到服务器!")
+        }
+
+    }
+</script>
+</body>
+</html>
