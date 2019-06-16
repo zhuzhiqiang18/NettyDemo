@@ -1,12 +1,12 @@
-package com.zzq.netty.socket.client;
+package com.zzq.netty.exchat.chatClient;
 
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
 
-public class ClientHandler extends SimpleChannelInboundHandler<String> {
+public class ChatClientHandler extends SimpleChannelInboundHandler<String> {
     @Override
     protected void channelRead0(ChannelHandlerContext channelHandlerContext, String s) throws Exception {
-        System.out.println("服务端："+s);
+        System.out.println(s);
     }
 
     @Override
@@ -15,10 +15,5 @@ public class ClientHandler extends SimpleChannelInboundHandler<String> {
         cause.printStackTrace();
     }
 
-    @Override
-    public void channelActive(ChannelHandlerContext ctx) throws Exception {
-        ctx.channel().writeAndFlush("客户端连接");
-        //ctx.writeAndFlush("客户端连接");
-       // super.channelActive(ctx);
-    }
+
 }
